@@ -1,0 +1,205 @@
+/* Usado no início de um arquivo de estilos para resetar
+(exibir os elementos por padrão) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Largura e altura totais de um elemento. */
+}
+
+/* Variável padrão para o modo light - elemento raiz do documento.
+Define as variáveis CSS globais que serão usadas por padrão (o modo escuro). */
+:root {
+    --text-color: white; /* Cor principal do texto */
+    --bg-url: url(./assets/bg-mobile.jpg); /* Imagem de fundo */
+    --stroke-color: rgba(255, 255, 255, 0.5); /* Cor da borda (traço) com um branco semitransparente 
+    (opacidade de 50%) */
+    --surface-color: rgba(255, 255, 255, 0.05); /* Cor de fundo para elementos de "superfície", 
+    com um branco bem transparente (opacidade de 5%) */ 
+    --surface-color-hover: rgba(0, 0, 0, 0.02); /* Cor da superfície quando o mouse passa por cima
+    preto quase transparente (opacidade de 2%) */
+    --highlight-color: rgba(255, 255, 255, 0.2); /* Cor de destaque ou sombra com um branco 
+    transparente (opacidade de 20%) */
+    --switch-bg-url: url(./assets/moon-stars.svg); /* Define o ícone de fundo para o botão de alternãncia
+    (switch) mostrando uma lua e estrelas */
+}
+
+/* Modo claro 
+Sobrescreve as variáveis padrão para mudar o tema */
+.light { /* Só se aplica quando a class light está presente */
+    --text-color: black; /* Sobrescreve a cor do texto para preto */
+    --bg-url: url(./assets/bg-mobile-light.jpg);
+    --stroke-color: rgba(0, 0, 0, 0.5);
+    --surface-color: rgba(0, 0, 0, 0.05);
+    --surface-color-hover: rgba(0, 0, 0, 0.02);
+    --highlight-color: rgba(0, 0, 0, 0.1);
+    --switch-bg-url: url(./assets/sun.svg); /* Alternãncia para um sol */
+}
+
+/* Estilo base para o corpo da página (<body), ou seja, cor de fundo do projeto
+e para todos os seus elementos filhos */
+body {
+    /*
+    background-image: url(./assets/bg-mobile.jpg);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+    */
+
+    /*background: color image repeat position/size*/
+    background: var(--bg-url) no-repeat top center/cover; /* Forma abreviada de definir múltiplas 
+    propriedades de fundo em uma única linha - propriedades citadas acima */
+}
+
+/* Garante que toto o texto na página use a mesma fonte e cor, respeitando o tema ativo (claro ou escuro) */
+body * {
+    font-family: "Inter", sans-serif; /* Fonte primária para todos os textos como Inter
+    se não conseguir carregar a Inter, usará qualquer fonte sans-serif */
+    color: var(--text-color); /* Aterna entre preto e branco */
+}
+
+/* Fundo do projeto - limitar largura e centralizar conteúdo */
+#container {
+    width: 360px; /* Largura fixa para o container */
+    margin: 56px auto 0px; /* Margens externas do container
+    Em forma de relógio 56px (margin-top) em cima, auto na direita (margin-right), 0 em baixo 
+    (margin-botton) e auto na esquerda (margin-left). 
+    não preciso colocar separado margin por margin.
+    */
+    padding: 0 24px; /* Preenchimento interno do container (24px - padding-right e padding-left)
+    garantindo que o conteúdo não cole nas bordas do container. */
+}
+
+/* profile (perfil do usuário) */
+#profile {
+    text-align: center; /* Alinha todo o conteúdo do texto */
+    padding: 24px;
+}
+
+#profile img {
+    display: block; /* Transforma a imagem (que por padrão é um elemento inline) em um elemento bloco. */
+    width: 112px;
+    margin: auto;
+}
+
+/* Estiliza o parágrafo de texto */
+#profile p {
+    font-weight: 500;
+    line-height: 24px;
+    margin-top: 8px;
+}
+
+/* switch - container do botão (espaço onde o botão irá deslizar) */
+#switch {
+    position: relative; /* coordenadas para os elementos filhos */
+    width: 64px;
+
+    margin: 4px auto;
+}
+
+/* botão deslizante */
+#switch button {
+    width: 32px;
+    height: 32px;
+    background: white var(--switch-bg-url) no-repeat center; /* Define o fundo do botão */
+    border: 0;
+    border-radius: 50%; /* Remove qualquer borda padrão e arredonda as bordas em 50% 
+    para criar um botão perfeitamente circular. */
+
+    position: absolute;
+    top: 50%; /* Move o topo do botão para a metade (50%) da altura do container #switch. */
+    left: 0; /* Posiciona o botão no extremo esquerdo do container (modo escuro). */
+    z-index: 1; /* Garante que o botão fique na camada superior, 
+    acima de outros elementos na mesma posição. */
+    transform: translateY(-50%); /* Corrigindo para mover verticalmente */
+}
+
+/* Posicionamento no modo claro */
+/* Move o botão para o lado direito */
+.light #switch button { /* Só se aplica quando o modo claro está ativo */
+    right: 0;
+    left: initial; /* Remove a propriedade left: 0 definida anteriormente, 
+    permitindo que a propriedade right: 0 assuma o controle. */
+}
+
+/* Estilizar a trilha ou o fundo horizontal (fica por baixo do botão circular) */
+#switch span {
+    display: block;
+    width: 64px;
+    height: 24px;
+    background: var(--surface-color);
+    border: 1px solid var(--stroke-color);
+    backdrop-filter: blur(4px); /* Efeito de fundo desfocado */
+    -webkit-backdrop-filter: blur(4px); /* Garante a compatibilidade com os navegadores */ 
+    border-radius: 9999px; /* Cria o formato oval */
+}
+
+/* links - lista */
+ul {
+    list-style: none; /* Remove os marcadores (os pontinhos pretos) */
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Espaçamento entre os ítens */
+
+    padding: 24px 0;
+}
+
+/* Botões interativos para os links */
+ul li a {
+    display: flex;
+    align-items: center; /* centraliza verticalmente */
+    justify-content: center; /* centraliza horizontalmente */
+
+    padding: 16px 24px; /* define o tamanho clicável do botão */
+
+    background: var(--surface-color);
+    border: 1px solid var(--stroke-color);
+    border-radius: 8px;
+
+    backdrop-filter: blur (4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    text-decoration: none; /* Remove o sublinhado padrão que os links HTML geralmente possuem. */
+    font-weight: 500;
+
+    transition: background 0.2s; /* Evita mudança brusca de cor, quando o mouse passa em cima */
+}
+
+/* pseudo-selector (efeito de passar o mouse) */
+ul li a:hover {
+    background: var(--surface-color-hover);
+    border: 1.5px solid var(--text-color);
+}
+
+/*social links - container dos links*/
+#social-links {
+    display: flex;
+    justify-content: center;
+
+    padding: 24px 0;
+
+    font-size: 24px;
+}
+
+/* Links individuais */
+#social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+
+    transition: background 0.2s;
+    border-radius: 50%;
+}
+
+#social-links a:hover {
+    background: var(--highlight-color);
+}
+
+/* Estlizar o rodapé */
+footer {
+    padding: 24px 0;
+    text-align: center;
+    font-size: 14px;
+}
+
