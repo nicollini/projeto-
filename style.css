@@ -59,7 +59,8 @@ body * {
 
 /* Fundo do projeto - limitar largura e centralizar conteúdo */
 #container {
-    width: 360px; /* Largura fixa para o container */
+    width: 100%; /* Largura fixa para o container */
+    max-width: 588px;
     margin: 56px auto 0px; /* Margens externas do container
     Em forma de relógio 56px (margin-top) em cima, auto na direita (margin-right), 0 em baixo 
     (margin-botton) e auto na esquerda (margin-left). 
