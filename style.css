@@ -113,14 +113,18 @@ body * {
     z-index: 1; /* Garante que o botão fique na camada superior, 
     acima de outros elementos na mesma posição. */
     transform: translateY(-50%); /* Corrigindo para mover verticalmente */
+
+    animation: slide-back 0.2s;
 }
 
 /* Posicionamento no modo claro */
 /* Move o botão para o lado direito */
 .light #switch button { /* Só se aplica quando o modo claro está ativo */
-    right: 0;
-    left: initial; /* Remove a propriedade left: 0 definida anteriormente, 
-    permitindo que a propriedade right: 0 assuma o controle. */
+    animation: slide-in 0.4s forwards;
+}
+
+#switch button:hover {
+    outline: 8px solid var(--highlight-color);
 }
 
 /* Estilizar a trilha ou o fundo horizontal (fica por baixo do botão circular) */
@@ -206,6 +210,7 @@ footer {
 }
 
 /* media queries */
+/* imagem de fundo baseada no dispositivo, de acordo com o tamanho de cada dispositivo */
 @media (min-width: 700px) {
     :root {
         --bg-url: url(./assets/bg-desktop.jpg);
@@ -213,5 +218,24 @@ footer {
 
     .light {
         --bg-url: url(./assets/bg-desktop-light.jpg);
+    }
+}
+
+/* animation */
+@keyframes slide-in { 
+    from {
+        left: 0;
+    }
+    to {
+        left: 50%;
+    }
+}
+
+@keyframes slide-back {
+    from {
+        left: 50%;
+    }
+    to {
+        left: 0;
     }
 }
